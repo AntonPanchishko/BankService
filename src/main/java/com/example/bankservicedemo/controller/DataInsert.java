@@ -1,4 +1,3 @@
-/*
 package com.example.bankservicedemo.controller;
 
 import com.example.bankservicedemo.model.Role;
@@ -34,4 +33,3 @@ public class DataInsert {
         userService.create(adminUser);
     }
 }
-*/
