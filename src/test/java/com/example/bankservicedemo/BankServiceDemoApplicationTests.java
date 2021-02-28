@@ -9,7 +9,6 @@ class BankServiceDemoApplicationTests {
 
     @Test
     void contextLoads() {
-        assertTrue(true);
     }
 
 }
