@@ -7,7 +7,7 @@ public interface UserService {
 
     User update(User user);
 
-    User get(Long id);
+    User findById(Long id);
 
     User getByPhone(String phone);
 
