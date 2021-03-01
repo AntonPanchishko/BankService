@@ -3,10 +3,9 @@ package com.example.bankservicedemo.service.impl;
 import com.example.bankservicedemo.model.User;
 import com.example.bankservicedemo.repository.UserRepository;
 import com.example.bankservicedemo.service.UserService;
+import java.util.NoSuchElementException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -26,13 +25,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User get(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Can't find user with such id " + id));
+                .orElseThrow(() ->
+                        new NoSuchElementException("Can't find user with such id " + id));
     }
 
     @Override
     public User getByPhone(String phone) {
         return userRepository.getFirstByPhoneNumber(phone)
-                .orElseThrow(() -> new NoSuchElementException("Can't find user with such phone " + phone));
+                .orElseThrow(() ->
+                        new NoSuchElementException("Can't find user with such phone " + phone));
     }
 
     @Override
