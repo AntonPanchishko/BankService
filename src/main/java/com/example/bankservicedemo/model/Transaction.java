@@ -1,5 +1,6 @@
 package com.example.bankservicedemo.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class Transaction {
     @JoinColumn(name = "account_to")
     private Account accountTo;
     @Min(0)
-    private double amount;
+    private BigDecimal amount;
     private LocalDateTime date;
     private Type type;
 

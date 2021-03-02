@@ -1,5 +1,6 @@
 package com.example.bankservicedemo.model;
 
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,7 +24,7 @@ public class Account {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Currency currency;
-    private double balance;
+    private BigDecimal balance;
     @Column(name = "is_active")
     private boolean isActive;
     @ManyToOne

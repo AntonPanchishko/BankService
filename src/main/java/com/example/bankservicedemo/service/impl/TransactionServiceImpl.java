@@ -6,6 +6,7 @@ import com.example.bankservicedemo.model.Transaction;
 import com.example.bankservicedemo.repository.TransactionRepository;
 import com.example.bankservicedemo.service.AccountService;
 import com.example.bankservicedemo.service.TransactionService;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -23,26 +24,29 @@ public class TransactionServiceImpl implements TransactionService {
     public void transfer(String fromAccount, String toAccount, int amount) {
         Transaction transactionOutcoming = new Transaction();
         Account fromAccountByNumber = accountService.getByAccountNumber(fromAccount);
-        if (transactionOutcoming.getAmount() - amount <= 0) {
+        if (Double.parseDouble(String.valueOf(transactionOutcoming
+                .getAmount().subtract(BigDecimal.valueOf(amount)))) <= 0) {
             throw new NoEnoughMoneyException("No enough money on balance");
         }
         Account toAccountNyNumber = accountService.getByAccountNumber(toAccount);
         transactionOutcoming.setAccountFrom(fromAccountByNumber);
         transactionOutcoming.setAccountTo(toAccountNyNumber);
-        transactionOutcoming.setAmount(amount);
+        transactionOutcoming.setAmount(BigDecimal.valueOf(amount));
         transactionOutcoming.setDate(LocalDateTime.now());
         transactionOutcoming.setType(Transaction.Type.OUTCOMING);
-        fromAccountByNumber.setBalance(fromAccountByNumber.getBalance() - amount);
+        fromAccountByNumber.setBalance(fromAccountByNumber
+                .getBalance().subtract(BigDecimal.valueOf(amount)));
         accountService.save(fromAccountByNumber);
         transactionRepository.save(transactionOutcoming);
 
         Transaction transactionIncoming = new Transaction();
         transactionIncoming.setAccountFrom(fromAccountByNumber);
         transactionIncoming.setAccountTo(toAccountNyNumber);
-        transactionIncoming.setAmount(amount);
+        transactionIncoming.setAmount(BigDecimal.valueOf(amount));
         transactionIncoming.setDate(LocalDateTime.now());
         transactionIncoming.setType(Transaction.Type.INCOMING);
-        toAccountNyNumber.setBalance(toAccountNyNumber.getBalance() + amount);
+        toAccountNyNumber.setBalance(toAccountNyNumber
+                .getBalance().add(BigDecimal.valueOf(amount)));
         accountService.save(toAccountNyNumber);
         transactionRepository.save(transactionIncoming);
     }

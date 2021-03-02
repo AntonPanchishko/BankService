@@ -7,6 +7,7 @@ import com.example.bankservicedemo.model.User;
 import com.example.bankservicedemo.service.AccountService;
 import com.example.bankservicedemo.service.RoleService;
 import com.example.bankservicedemo.service.UserService;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 import javax.annotation.PostConstruct;
@@ -38,7 +39,7 @@ public class DataInsert {
         userService.create(adminUser);
 
         Account account = new Account();
-        account.setBalance(1000);
+        account.setBalance(BigDecimal.valueOf(1000));
         account.setActive(true);
         account.setAccountNumber("1111 2222 3333 4444");
         account.setCurrency(Currency.USD);
