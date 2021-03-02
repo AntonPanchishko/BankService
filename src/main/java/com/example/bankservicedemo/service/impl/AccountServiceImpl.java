@@ -31,11 +31,4 @@ public class AccountServiceImpl implements AccountService {
                     + " with such account number");
         });
     }
-
-    @Override
-    public void blockAccount(String accountNumber) {
-        Account byAccountNumber = getByAccountNumber(accountNumber);
-        byAccountNumber.setActive(false);
-        accountRepository.save(byAccountNumber);
-    }
 }

@@ -10,7 +10,6 @@ import com.example.bankservicedemo.service.UserService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
-import javax.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,6 @@ public class DataInsert {
     private final AccountService accountService;
 
     @GetMapping
-    @PostConstruct
     private void init() {
         Role user = new Role();
         user.setRoleName(Role.RoleType.USER);
