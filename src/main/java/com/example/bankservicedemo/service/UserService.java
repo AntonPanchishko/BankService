@@ -1,6 +1,7 @@
 package com.example.bankservicedemo.service;
 
 import com.example.bankservicedemo.model.User;
+import java.util.List;
 
 public interface UserService {
     User create(User user);
@@ -12,4 +13,6 @@ public interface UserService {
     User getByPhone(String phone);
 
     void remove(Long id);
+
+    List<User> findAll();
 }

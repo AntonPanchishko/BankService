@@ -12,15 +12,19 @@ import java.time.LocalDate;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Component
+@RestController
+@RequestMapping("/insert")
 @AllArgsConstructor
 public class DataInsert {
     private final RoleService roleService;
     private final UserService userService;
     private final AccountService accountService;
 
+    @GetMapping
     @PostConstruct
     private void init() {
         Role user = new Role();
@@ -45,5 +49,9 @@ public class DataInsert {
         account.setCurrency(Currency.USD);
         account.setUser(adminUser);
         accountService.save(account);
+
+        Account byAccountNumber = accountService.getByAccountNumber("1111 2222 3333 4444");
+        byAccountNumber.setActive(false);
+        accountService.save(byAccountNumber);
     }
 }

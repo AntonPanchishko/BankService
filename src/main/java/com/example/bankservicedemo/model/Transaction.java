@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import lombok.Data;
 
@@ -17,10 +17,10 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_from")
     private Account accountFrom;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_to")
     private Account accountTo;
     @Min(0)

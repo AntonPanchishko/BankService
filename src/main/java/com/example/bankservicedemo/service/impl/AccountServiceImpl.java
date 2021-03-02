@@ -1,5 +1,6 @@
 package com.example.bankservicedemo.service.impl;
 
+import com.example.bankservicedemo.exception.NoSuchEntityException;
 import com.example.bankservicedemo.model.Account;
 import com.example.bankservicedemo.repository.AccountRepository;
 import com.example.bankservicedemo.service.AccountService;
@@ -24,7 +25,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getByAccountNumber(String accountNumber) {
-        return accountRepository.findByAccountNumber(accountNumber);
+        return accountRepository.findByAccountNumber(accountNumber).orElseThrow(()
+                -> {
+            throw new NoSuchEntityException("Can't find account"
+                    + " with such account number");
+        });
     }
 
     @Override
