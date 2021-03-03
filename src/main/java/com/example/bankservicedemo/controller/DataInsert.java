@@ -66,7 +66,7 @@ public class DataInsert {
         accountAlice.setUser(alice);
         accountService.save(accountAlice);
 
-        transactionService.transfer(accountBob, accountAlice, 100);
+        transactionService.transfer(accountBob, accountAlice, BigDecimal.valueOf(100));
         System.out.println("transaction successfully");
     }
 }
