@@ -5,8 +5,10 @@ import com.example.bankservicedemo.model.Account;
 import com.example.bankservicedemo.model.Transaction;
 import com.example.bankservicedemo.repository.TransactionRepository;
 import com.example.bankservicedemo.service.AccountService;
+import com.example.bankservicedemo.service.ClientService;
 import com.example.bankservicedemo.service.TransactionService;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final AccountService accountService;
+    private final ClientService clientService;
 
     @Transactional
     @Override
@@ -45,6 +48,11 @@ public class TransactionServiceImpl implements TransactionService {
         transactionIncoming.setAmount(BigDecimal.valueOf(amount));
         transactionIncoming.setDate(LocalDateTime.now());
         transactionIncoming.setType(Transaction.Type.INCOMING);
+        if (fromAccount.getCurrency() != toAccount.getCurrency()) {
+            double rate = clientService.getRate(LocalDate.now(),
+                    fromAccount.getCurrency(), toAccount.getCurrency());
+            amount = (int) (amount * rate);
+        }
         toAccount.setBalance(toAccount.getBalance()
                 .add(BigDecimal.valueOf(amount)));
         accountService.save(toAccount);

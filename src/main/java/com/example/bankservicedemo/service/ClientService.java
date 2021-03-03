@@ -11,14 +11,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.common.DataProcessingException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class ClientService {
-    private double getRate(LocalDate date, Currency currencyFrom, Currency currencyTo) {
-        String path = "https://api.exchangerate.host/convert?from=" + currencyFrom.toString()
-                + "&to=" + currencyTo.toString() + "&date=" ;
+    @Value(value = "$(service.url)")
+    private String url;
+
+    public double getRate(LocalDate date, Currency currencyFrom, Currency currencyTo) {
+        String path = url + currencyFrom.toString()
+                + "&to=" + currencyTo.toString() + "&date=" + date;
         try {
             URL url = new URL(path);
             HttpURLConnection request = (HttpURLConnection) url.openConnection();
