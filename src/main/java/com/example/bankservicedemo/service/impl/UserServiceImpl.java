@@ -4,6 +4,7 @@ import com.example.bankservicedemo.exception.NoSuchEntityException;
 import com.example.bankservicedemo.model.User;
 import com.example.bankservicedemo.repository.UserRepository;
 import com.example.bankservicedemo.service.UserService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void remove(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }
