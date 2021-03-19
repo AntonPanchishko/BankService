@@ -4,6 +4,7 @@ import com.example.bankservicedemo.exception.NoSuchEntityException;
 import com.example.bankservicedemo.model.Role;
 import com.example.bankservicedemo.repository.RoleRepository;
 import com.example.bankservicedemo.service.RoleService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,10 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.getByRoleName(Role.RoleType.valueOf(name))
                 .orElseThrow(() ->
                         new NoSuchEntityException("Can't find role with such name " + name));
+    }
+
+    @Override
+    public List<Role> findAll() {
+        return roleRepository.findAll();
     }
 }

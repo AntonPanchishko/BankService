@@ -6,6 +6,7 @@ import com.example.bankservicedemo.model.Role;
 import com.example.bankservicedemo.model.User;
 import com.example.bankservicedemo.service.AccountService;
 import com.example.bankservicedemo.service.RoleService;
+import com.example.bankservicedemo.service.TransactionService;
 import com.example.bankservicedemo.service.UserService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class DataInsert {
     private final RoleService roleService;
     private final UserService userService;
     private final AccountService accountService;
+    private final TransactionService transactionService;
 
     @GetMapping
     private void init() {
@@ -32,24 +34,39 @@ public class DataInsert {
         admin.setRoleName(Role.RoleType.ADMIN);
         roleService.add(admin);
 
-        User adminUser = new User();
-        adminUser.setName("Admin");
-        adminUser.setDateOfBirth(LocalDate.of(2000,01,01));
-        adminUser.setRoleSet(Set.of(admin, user));
-        adminUser.setPassword("pass1word");
-        adminUser.setPhoneNumber("0678534856");
-        userService.create(adminUser);
+        User bob = new User();
+        bob.setName("Bob");
+        bob.setDateOfBirth(LocalDate.of(2000,01,01));
+        bob.setRoleSet(Set.of(admin, user));
+        bob.setPassword("pass1");
+        bob.setPhoneNumber("0112223344");
+        userService.create(bob);
 
-        Account account = new Account();
-        account.setBalance(BigDecimal.valueOf(1000));
-        account.setActive(true);
-        account.setAccountNumber("1111 2222 3333 4444");
-        account.setCurrency(Currency.USD);
-        account.setUser(adminUser);
-        accountService.save(account);
+        User alice = new User();
+        alice.setName("Alice");
+        alice.setDateOfBirth(LocalDate.of(2000,02,02));
+        alice.setRoleSet(Set.of(admin, user));
+        alice.setPassword("pass2");
+        alice.setPhoneNumber("0556667788");
+        userService.create(alice);
 
-        Account byAccountNumber = accountService.getByAccountNumber("1111 2222 3333 4444");
-        byAccountNumber.setActive(false);
-        accountService.save(byAccountNumber);
+        Account accountBob = new Account();
+        accountBob.setBalance(BigDecimal.valueOf(1000));
+        accountBob.setActive(true);
+        accountBob.setAccountNumber("1111 2222 3333 4444");
+        accountBob.setCurrency(Currency.USD);
+        accountBob.setUser(bob);
+        accountService.save(accountBob);
+
+        Account accountAlice = new Account();
+        accountAlice.setBalance(BigDecimal.valueOf(2000));
+        accountAlice.setActive(true);
+        accountAlice.setAccountNumber("5555 6666 7777 8888");
+        accountAlice.setCurrency(Currency.EUR);
+        accountAlice.setUser(alice);
+        accountService.save(accountAlice);
+
+        transactionService.transfer(accountBob, accountAlice, BigDecimal.valueOf(100));
+        System.out.println("transaction successfully");
     }
 }
