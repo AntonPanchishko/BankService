@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @PostMapping("/add")
+    @PostMapping
     public void addNewUser(UserRequestDto userRequestDto) {
         userService.create(userMapper.toEntity(userRequestDto));
     }

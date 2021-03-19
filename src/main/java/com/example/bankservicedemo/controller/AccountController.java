@@ -20,8 +20,8 @@ public class AccountController {
     private final AccountService accountService;
     private final AccountMapper accountMapper;
 
-    @PostMapping("/add")
-    public void addAccount(AccountRequestDto accountRequestDto) {
+    @PostMapping()
+    public void createAccount(AccountRequestDto accountRequestDto) {
         accountService.save(accountMapper.toEntity(accountRequestDto));
     }
 
