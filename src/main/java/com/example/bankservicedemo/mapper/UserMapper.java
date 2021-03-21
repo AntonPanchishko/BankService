@@ -1,15 +1,10 @@
 package com.example.bankservicedemo.mapper;
 
-import com.example.bankservicedemo.model.Role;
 import com.example.bankservicedemo.model.User;
 import com.example.bankservicedemo.model.dto.user.UserRequestDto;
 import com.example.bankservicedemo.model.dto.user.UserResponseDto;
-
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Component;
 
 @Component
