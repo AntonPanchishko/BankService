@@ -4,7 +4,12 @@ import com.example.bankservicedemo.model.Role;
 import com.example.bankservicedemo.model.User;
 import com.example.bankservicedemo.model.dto.user.UserRequestDto;
 import com.example.bankservicedemo.model.dto.user.UserResponseDto;
+
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,14 +17,11 @@ public class UserMapper {
     public User toEntity(UserRequestDto userRequestDto) {
         User user = new User();
         user.setName(userRequestDto.getName());
-        user.setPhoneNumber(userRequestDto.getPhoneNumber());
+        user.setDateOfBirth(LocalDate.parse(userRequestDto.getDateOfBirth()));
         user.setPassword(userRequestDto.getPassword());
-        Role role = new Role();
-        role.setRoleName(Role.RoleType.valueOf(userRequestDto.getRole()));
-        Set<Role> roleSet = user.getRoleSet();
-        roleSet.add(role);
-        user.setRoleSet(roleSet);
+        user.setPhoneNumber(userRequestDto.getPhoneNumber());
         return user;
+
     }
 
     public UserResponseDto toDto(User user) {
@@ -28,7 +30,10 @@ public class UserMapper {
         userResponseDto.setName(user.getName());
         userResponseDto.setDateOfBirth(user.getDateOfBirth().toString());
         userResponseDto.setPhoneNumber(user.getPhoneNumber());
-        userResponseDto.setRole(user.getRoleSet().toString());
+        userResponseDto.setRole(user.getRoleSet()
+                .stream()
+                .map(String::valueOf)
+                .collect(Collectors.toList()));
         return userResponseDto;
     }
 }

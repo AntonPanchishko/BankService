@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> getFirstByPhoneNumber(String phoneNumber);
+
+    Optional<User> getFirstById(Long id);
 }

@@ -8,4 +8,5 @@ public class AccountRequestDto {
     private String currency;
     private Double balance;
     private boolean isActive;
+    private Long userId;
 }

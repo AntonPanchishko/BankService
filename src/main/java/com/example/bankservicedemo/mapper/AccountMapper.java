@@ -13,7 +13,6 @@ public class AccountMapper {
     public Account toEntity(AccountRequestDto accountRequestDto) {
         Account account = new Account();
         account.setAccountNumber(accountRequestDto.getAccountNumber());
-        account.setActive(accountRequestDto.isActive());
         account.setCurrency(Currency.valueOf(accountRequestDto.getCurrency()));
         account.setBalance(BigDecimal.valueOf(accountRequestDto.getBalance()));
         return account;
@@ -26,6 +25,7 @@ public class AccountMapper {
         accountResponseDto.setBalance(account.getBalance().toString());
         accountResponseDto.setCurrency(account.getCurrency().toString());
         accountResponseDto.setId(account.getId());
+        accountResponseDto.setUserId(account.getUser().getId());
         return accountResponseDto;
     }
 }
